@@ -4,8 +4,9 @@ on:
     inputs:
         release:
             description: 'Release version'
+            type: boolean
             required: false
-            default: 'false'
+            default: false
 
 jobs:
   build:
