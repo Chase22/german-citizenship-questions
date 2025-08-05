@@ -34,12 +34,13 @@ val fetchHtml = tasks.register<Download>("FetchHtml") {
     eachFile { name = "${name.removePrefix(".html")}.html" }
 }
 
+val questionOutputDir = layout.buildDirectory.dir("questions")
+
 val processHtml = tasks.register<JavaExec>("ProcessHtml") {
     val inputsDir = fetchHtml.get().dest
-    val outputsDir = layout.buildDirectory.dir("questions")
 
     inputs.dir(inputsDir)
-    outputs.dir(outputsDir)
+    outputs.dir(questionOutputDir)
 
     dependsOn(fetchHtml, tasks.build)
 
@@ -49,6 +50,11 @@ val processHtml = tasks.register<JavaExec>("ProcessHtml") {
     mainClass.set("de.chasenet.citizenship.MainKt")
     args = listOf(
         inputsDir.absolutePath,
-        outputsDir.get().asFile.absolutePath
+        questionOutputDir.get().asFile.absolutePath
     )
+}
+
+tasks.register<JsonValidatorTask>("ValidateJson") {
+    inputFile.set(questionOutputDir.get().file("questions.json"))
+    schemaFile.set(layout.projectDirectory.file("schemas/questions.schema.json"))
 }

@@ -1,0 +1,43 @@
+{
+  "$id": "https://chasenet.de/schemas/questions.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Citizenship Questions Schema",
+  "description": "Schema for the german citizenship questions",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "A simple numeric id identifying the individual questions. Starting at 1 to coincide with the question numbering"
+      },
+      "text": {
+        "type": "string",
+        "description": "The question text"
+      },
+      "image": {
+        "type": "string",
+        "description": "An optional image to go with the question. Oftentimes required to answer the question correctly"
+      },
+      "answers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "The answer text"
+            },
+            "isCorrect": {
+              "type": "boolean",
+              "description": "If the answer is correct. Only 1 answer will have this set"
+            }
+          },
+          "required": ["text", "isCorrect"]
+        }
+      }
+    },
+    "required": ["id", "text", "answers"]
+  }
+}
