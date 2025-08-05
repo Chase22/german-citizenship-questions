@@ -21,7 +21,7 @@ fun toXml(questions: List<Question>): String {
     val document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument()
     val rootElement = document.createElement("questions").apply {
         setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
-        setAttribute("xsi:noNamespaceSchemaLocation", "file:questions.xsd")
+        setAttribute("xsi:noNamespaceSchemaLocation", "https://raw.githubusercontent.com/Chase22/german-citizenship-questions/refs/heads/main/questions.xsd")
     }
     document.appendChild(rootElement)
 
